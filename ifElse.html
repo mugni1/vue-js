@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <!-- mount di sini -->
+    <div id="app">
+      <div>
+        <div v-if="status=='active'">
+          {{ message }}
+        </div>
+        <div v-else>
+          tidak ada message
+        </div>
+      </div>
+
+      <div>
+        <span v-if="nilai > 8">
+          Peringkat kamu A
+        </span>
+        <span v-else-if="nilai <= 8 && nilai > 6">
+          Peringkat Kamu B
+        </span>
+        <span v-else>
+          Sebaiknya kamu belajar lebih giat lagi
+        </span>
+      </div>
+    </div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            message: "Aku adalah manusia",
+            message1: "Aku adalah Robot",
+            status: "active",
+            nilai: 4,
+          };
+        },
+        methods: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>

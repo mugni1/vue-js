@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <!-- mount di sini -->
+    <div id="app">
+      <!-- for-loops  -->
+      <div v-for="item in 5">
+        div ke {{ item }}
+      </div>
+
+      <!-- implementsi -->
+      <ul class="list-disc list-inside">
+        <li v-for="(item, index) in buah">
+          {{ item }}
+          <button
+            class="border bg-red-600 rounded-md px-3"
+            @click="hapus(index)"
+          >
+            X
+          </button>
+        </li>
+      </ul>
+
+      <!-- implementsi -->
+      <ul class="list-decimal list-inside">
+        <li v-for="item in player">
+          Nama: {{ item.name }}, Posisi: {{ item.position }}
+        </li>
+      </ul>
+    </div>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            buah: ["aple", "jambu", "jeruk", "pisang", "pepaya"],
+            player: [
+              { name: "messi", position: "striker" },
+              { name: "Ronaldo", position: "striker" },
+              { name: "Van Der Sar", position: "Back" },
+            ],
+          };
+        },
+        methods: {
+          hapus(index) {
+            this.buah.splice(index, 1); //artinya hapus 1 element mulai dari index tersebut
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
