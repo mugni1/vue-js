@@ -8,75 +8,78 @@
   </head>
   <body>
     <!-- mount di sini -->
-    <div class="w-full px-10" id="app">
-      <h1 class="font-bold text-xl">Total Pesanan Harga</h1>
-      <div
-        class="font-semibold py-2 px-5 bg-yellow-500 rounded-xl inline-block text-white"
-      >
-        {{ count }} Item , Rp. {{ rp }}
-      </div>
-      <div></div>
-      <!-- list makanan -->
-      <h1
-        class="mt-5 font-bold rounded-xl bg-sky-600 py-2 px-5 text-white inline-block"
-      >
-        Pilih Makanan
-      </h1>
-      <ul class="">
-        <li class="my-3" v-for="(item, index) in makanan">
-          {{ item.nama }}, Rp. {{ item.harga }} / porsi
-          <div class="flex gap-5">
-            <button
-              class="rounded-lg bg-teal-600 px-3 text-white shadow-md font-semibold block"
-              @click="tambah(index,item.harga)"
-            >
-              +
-            </button>
-            <div>
-              {{ item.jumlah}}
+    <div class="w-full" id="app">
+      <section class="w-full px-5">
+        <!-- list makanan -->
+        <h1
+          class="mt-5 font-bold rounded-xl bg-sky-600 py-2 px-5 text-white inline-block"
+        >
+          Pilih Makanan
+        </h1>
+        <ul class="">
+          <li class="my-3" v-for="(item, index) in makanan">
+            {{ item.nama }}, Rp. {{ item.harga }} / porsi
+            <div class="flex gap-5">
+              <button
+                class="rounded-lg bg-teal-600 px-3 text-white shadow-md font-semibold block"
+                @click="tambah(index,item.harga)"
+              >
+                +
+              </button>
+              <div>
+                {{ item.jumlah}}
+              </div>
+              <button
+                class="rounded-lg bg-red-600 px-3 text-white shadow-md font-semibold"
+                v-if="item.jumlah!=0"
+                @click="kurang(index,item.harga)"
+              >
+                -
+              </button>
             </div>
-            <button
-              class="rounded-lg bg-red-600 px-3 text-white shadow-md font-semibold"
-              v-if="item.jumlah!=0"
-              @click="kurang(index,item.harga)"
-            >
-              -
-            </button>
-          </div>
-        </li>
-      </ul>
-      <!-- list makanan -->
+          </li>
+        </ul>
+        <!-- list makanan -->
 
-      <!-- list minuman -->
-      <h1
-        class="mt-5 font-bold rounded-xl bg-sky-600 py-2 px-5 text-white inline-block"
-      >
-        Pilih Minuman
-      </h1>
-      <ul class="">
-        <li class="my-3" v-for="(item, index) in minuman">
-          {{ item.nama }}, Rp. {{ item.harga }} / gelas
-          <div class="flex gap-5">
-            <button
-              class="rounded-lg bg-teal-600 px-3 text-white shadow-md font-semibold block"
-              @click="tambahminuman(index,item.harga)"
-            >
-              +
-            </button>
-            <div>
-              {{ item.jumlah}}
+        <!-- list minuman -->
+        <h1
+          class="mt-5 font-bold rounded-xl bg-sky-600 py-2 px-5 text-white inline-block"
+        >
+          Pilih Minuman
+        </h1>
+        <ul class="mb-20">
+          <li class="my-3" v-for="(item, index) in minuman">
+            {{ item.nama }}, Rp. {{ item.harga }} / gelas
+            <div class="flex gap-5">
+              <button
+                class="rounded-lg bg-teal-600 px-3 text-white shadow-md font-semibold block"
+                @click="tambahminuman(index,item.harga)"
+              >
+                +
+              </button>
+              <div>
+                {{ item.jumlah}}
+              </div>
+              <button
+                class="rounded-lg bg-red-600 px-3 text-white shadow-md font-semibold"
+                v-if="item.jumlah!=0"
+                @click="kurangminuman(index,item.harga)"
+              >
+                -
+              </button>
             </div>
-            <button
-              class="rounded-lg bg-red-600 px-3 text-white shadow-md font-semibold"
-              v-if="item.jumlah!=0"
-              @click="kurangminuman(index,item.harga)"
-            >
-              -
-            </button>
-          </div>
-        </li>
-      </ul>
-      <!-- list minuman -->
+          </li>
+        </ul>
+        <!-- list minuman -->
+      </section>
+
+      <!-- total -->
+      <div
+        class="font-semibold py-2 px-5 bg-emerald-600 w-full fixed bottom-0 shadow-md text-white h-14 flex items-center justify-center"
+      >
+        Checkout {{ count }} Item , Rp. {{ rp }}
+      </div>
+      <!-- total -->
     </div>
 
     <script type="module">
@@ -93,10 +96,19 @@
               { nama: "Nasi", harga: 5000, jumlah: 0 },
             ],
             minuman: [
-              { nama: "Es teh", harga: 5000, jumlah: 0 },
-              { nama: "Es Kelapa", harga: 8000, jumlah: 0 },
-              { nama: "Es Lemon", harga: 6000, jumlah: 0 },
-              { nama: "Es Kul Kul", harga: 10000, jumlah: 0 },
+              { nama: "Es teh", harga: 5000, jumlah: 0, img: "es-teh.jpg" },
+              {
+                nama: "Es Kelapa",
+                harga: 8000,
+                jumlah: 0,
+                img: "es-kelapa.jpg",
+              },
+              {
+                nama: "Es Lemon",
+                harga: 6000,
+                jumlah: 0,
+                img: "es-lemon.jpg",
+              },
             ],
           };
         },
