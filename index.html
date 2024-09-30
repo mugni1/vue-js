@@ -62,8 +62,14 @@
           Pilih Makanan
         </h1>
         <ul class="">
-          <li class="my-3" v-for="(item, index) in makanan">
-            {{ item.nama }}, Rp. {{ item.harga }} / porsi
+          <li class="mb-8 mt-5" v-for="(item, index) in makanan">
+            <img
+              v-bind:src="'image/' + item.img"
+              alt=""
+              class="w-2/12 rounded-xl shadow-md"
+            />
+            <h1 class="font-semibold">{{ item.nama }}</h1>
+            <h2 class="mb-2">Rp.{{ item.harga }} / porsi</h2>
             <div class="flex gap-5">
               <button
                 class="rounded-lg bg-teal-600 px-3 text-white shadow-md font-semibold block"
@@ -123,8 +129,14 @@
           Pilih Minuman
         </h1>
         <ul class="mb-20">
-          <li class="my-3" v-for="(item, index) in minuman">
-            {{ item.nama }}, Rp. {{ item.harga }} / gelas
+          <li class="mb-8 mt-5" v-for="(item, index) in minuman">
+            <img
+              v-bind:src="'image/' + item.img"
+              alt=""
+              class="w-2/12 rounded-xl shadow-md"
+            />
+            <h1 class="font-semibold">{{ item.nama }}</h1>
+            <h2 class="mb-2">Rp.{{ item.harga }} / gelas</h2>
             <div class="flex gap-5">
               <button
                 class="rounded-lg bg-teal-600 px-3 text-white shadow-md font-semibold block"
@@ -173,9 +185,19 @@
             count: 0,
             rp: 0,
             makanan: [
-              { nama: "Sate Ayam", harga: 10000, jumlah: 0 },
-              { nama: "Sate Kambing", harga: 13000, jumlah: 0 },
-              { nama: "Nasi", harga: 5000, jumlah: 0 },
+              {
+                nama: "Sate Ayam",
+                harga: 10000,
+                jumlah: 0,
+                img: "sate-ayam.jpg",
+              },
+              {
+                nama: "Sate Kambing",
+                harga: 13000,
+                jumlah: 0,
+                img: "sate-kambing.jpg",
+              },
+              { nama: "Nasi", harga: 5000, jumlah: 0, img: "nasi.jfif" },
             ],
             minuman: [
               { nama: "Es teh", harga: 5000, jumlah: 0, img: "es-teh.jpg" },
