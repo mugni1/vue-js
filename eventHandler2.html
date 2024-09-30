@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <section id="app">
+    <!-- click -->
+    <button @click="sayHello('Cara asep')">Click me</button>
+
+    <!-- keyup and keydown -->
+    <input type="text" @keydown.up="sayHello('Cara Asep')" />
+
+    <!-- .prevent default untuk tiddak beralih halaman -->
+    <form action="whatever.html" method="get" @submit.prevent>
+      <input type="text" />
+      <button type="submit">click me</button>
+    </form>
+  </section>
+
+  <body>
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {};
+        },
+        methods: {
+          sayHello(param) {
+            alert(param);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
