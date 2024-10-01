@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body id="app">
+    <section class="w-full mx-5">
+      <!-- input username -->
+      <input type="text" placeholder="Username" v-model="username" />
+      <!-- text area -->
+      <div>
+        <textarea name="" id="" v-model="adress" rows="10"></textarea>
+      </div>
+      <div>
+        <label for="gender">Pilih Kelamin</label>
+        <br />
+        <input
+          type="radio"
+          name="gender"
+          id="laki-laki"
+          value="Laki-Laki"
+          v-model="gender"
+          checked
+        />
+        <label for="laki-laki">Laki Laki</label>
+        <input
+          type="radio"
+          name="gender"
+          id="perempuan"
+          value="Perempuan"
+          v-model="gender"
+        />
+        <label for="perempuan">Perempuan</label>
+      </div>
+      <h1>Username : {{ username}}</h1>
+      <h1>Adress : {{ adress }}</h1>
+      <h1>Gender : {{ gender }}</h1>
+    </section>
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            username: "",
+            adress: "",
+            gender: "Laki-Laki",
+          };
+        },
+        methods: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
