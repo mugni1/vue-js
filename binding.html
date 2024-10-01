@@ -7,7 +7,9 @@
   </head>
   <body>
     <section id="app">
-      <a v-bind:href="'https://' + url">google</a>
+      <a v-bind:href="'https://' + url" class="block">google</a>
+      <br />
+      <img :src="'image/' + img" alt="" class="block" />
     </section>
 
     <script type="module">
@@ -17,6 +19,7 @@
         data() {
           return {
             url: "google.com",
+            img: "nasi.jfif",
           };
         },
         methods: {},
