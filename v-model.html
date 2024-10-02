@@ -8,11 +8,16 @@
   <body id="app">
     <section class="w-full mx-5">
       <!-- input username -->
-      <input type="text" placeholder="Username" v-model="username" />
+      <div>
+        <input type="text" placeholder="Username" v-model="username" />
+      </div>
       <!-- text area -->
+      <!-- addres -->
       <div>
         <textarea name="" id="" v-model="adress" rows="10"></textarea>
       </div>
+      <!-- end address -->
+      <!-- jenis kelamin -->
       <div>
         <label for="gender">Pilih Kelamin</label>
         <br />
@@ -34,9 +39,45 @@
         />
         <label for="perempuan">Perempuan</label>
       </div>
+      <!-- end jenis kelamin -->
+      <!-- hobbies -->
+      <div>
+        <label for="">Pilih Hobi Anda</label>
+        <div>
+          <input
+            type="checkbox"
+            id="sepakBola"
+            value="Sepak Bola"
+            v-model="hobbies"
+          />
+          <label for="sepakBola">Sepak Bola</label>
+        </div>
+        <div>
+          <input type="checkbox" id="basket" value="Basket" v-model="hobbies" />
+          <label for="basket">Basket</label>
+        </div>
+        <div>
+          <input type="checkbox" id="volly" value="Volly" v-model="hobbies" />
+          <label for="volly">Volly</label>
+        </div>
+      </div>
+      <!-- end hobies -->
+      <!-- PASSWORD -->
+      <div>
+        <input v-if="type==''" type="password" v-model="pw" />
+        <input v-else type="text" v-model="pw" />
+        <br />
+        <input type="checkbox" name="" id="show" value="text" v-model="type" />
+        <label for="show">Show PW</label>
+      </div>
+      <!-- END PASSWORD -->
       <h1>Username : {{ username}}</h1>
       <h1>Adress : {{ adress }}</h1>
       <h1>Gender : {{ gender }}</h1>
+      <h1>
+        Hobbies :
+        <span v-for="(item, index) in hobbies">{{ item }}, </span>
+      </h1>
     </section>
     <script type="module">
       import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
@@ -47,6 +88,9 @@
             username: "",
             adress: "",
             gender: "Laki-Laki",
+            hobbies: [],
+            type: "",
+            pw: "",
           };
         },
         methods: {},
