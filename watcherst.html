@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body id="app">
+    <section class="h-screen w-full flex justify-center items-center">
+      <form action="" class="w-3/12 shadow-md border rounded-lg px-5 bg-white pb-5">
+        <h1 class="text-center mt-5 font-bold text-xl mb-2">LOGIN</h1>
+        <div class="w-full flex flex-wrap my-2">
+          <label for="username" class="w-full font-semibold ms-1"
+            >Username</label
+          >
+          <input
+            type="text"
+            id=""
+            placeholder="Type Here"
+            v-model="username"
+            class="border w-full px-2 rounded-md py-1"
+          />
+          <div v-if="errorUsername != null" class="text-red-600">
+            {{ errorUsername }}
+          </div>
+          <div v-if="errorRegex != null" class="text-red-600">
+            {{ errorRegex }}
+          </div>
+        </div>
+        <div class="w-full flex flex-wrap my-2">
+          <label for="username" class="w-full font-semibold ms-1"
+            >Password</label
+          >
+          <input
+            type="text"
+            id=""
+            placeholder="Type Here"
+            v-model="pw"
+            class="border w-full px-2 rounded-md py-1"
+          />
+          <div v-if="errorPw != null" class="text-red-600">{{ errorPw }}</div>
+        <div class="w-full flex flex-wrap my-2">
+          <label for="username" class="w-full font-semibold ms-1"
+            >Retype Password</label
+          >
+          <input
+            type="text"
+            id=""
+            placeholder="Type Here"
+            v-model="retypePw"
+            class="border w-full px-2 rounded-md py-1"
+          />
+          <div v-if="errorretypePw != null" class="text-red-600">{{ errorretypePw }}</div>
+        </div>
+        <div class="w-full flex flex-wrap my-2">
+          <button
+            type="submit"
+            class=" rounded-md w-full bg-blue-600 text-white font-semibold py-1 shadow-md hover:bg-blue-900"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            username: "",
+            pw: "",
+            retypePw : "",
+            errorUsername: null,
+            errorRegex: null,
+            errorPw: null,
+            errorretypePw : null
+          };
+        },
+        watch: {
+          username(newValue, oldValue) {
+            let regex = /^[a-z0-9_]+$/; // a-z, 1-0 , _
+            if (newValue.length < 12) {
+              this.errorUsername = "Username minimal 12 karakter";
+            } else {
+              this.errorUsername = null;
+            }
+            
+            if(regex.test(newValue) == false){
+              this.errorRegex = "username menggunakan a-z, 1-0, _"
+            }else{
+              this.errorRegex = null
+            }
+          },
+          pw(newValue, oldValue) {
+            if (newValue.length < 8) {
+              this.errorPw = "Password minimal 8 karakter";
+            } else {
+              this.errorPw = null;
+            }
+          },
+          retypePw(value){
+            if(value != this.pw){
+              this.errorretypePw = "Password tidak sesuai"
+            }else{
+              this.errorretypePw = null
+            }
+          }
+        },
+        methods: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
