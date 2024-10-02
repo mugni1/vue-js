@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body id="app">
+    <section class="w-full flex justify-center my-5">
+      <h1 class="font-bold text-3xl">To do list App</h1>
+    </section>
+
+    <!-- form add list -->
+    <section class="w-full flex justify-center">
+      <div action="" class="w-1/2 flex gap-6">
+        <input
+          type="time"
+          placeholder="00:00 start"
+          class="border w-2/12 text-center py-1 rounded-lg shadow-md px-2"
+          v-model="start"
+        />
+        <input
+          type="time"
+          placeholder="00:00 end"
+          class="border w-2/12 text-center py-1 rounded-lg shadow-md px-2"
+          v-model="end"
+        />
+        <input
+          type="text"
+          placeholder="Kegiatan"
+          class="border w-6/12 px-3 py-1 rounded-lg shadow-md"
+          v-model="kegiatan"
+        />
+        <button
+          class="py-1 px-4 bg-blue-600 rounded-lg text-white font-semibold active:bg-blue-900 shadow-md active:shadow-sm"
+          @click="add(start,end,kegiatan)"
+        >
+          Add
+        </button>
+      </div>
+    </section>
+    <!--end form add list -->
+
+    <!-- list kegiatan -->
+    <section class="w-full flex justify-center my-10">
+      <ul class="w-1/2">
+        <li
+          v-for="(item, index) in list"
+          class="py-4 flex gap-5 items-center border-b-2"
+        >
+          <button
+            class="py-1 px-4 bg-red-600 rounded-lg text-white font-semibold active:bg-red-900 shadow-lg active:shadow-sm"
+            v-on:click="hapus(index)"
+          >
+            Delete
+          </button>
+          <button
+            class="py-1 px-4 bg-green-600 rounded-lg text-white font-semibold active:bg-green-900 shadow-lg active:shadow-sm"
+          >
+            Done
+          </button>
+          <span> {{ item.start }} - {{ item.end }} {{ item.kegiatan }}</span>
+        </li>
+      </ul>
+    </section>
+    <!-- end list kegiatan -->
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            start: "",
+            end: "",
+            kegiatan: "",
+            list: [
+              {
+                start: "19:00",
+                end: "22:00",
+                kegiatan: "Belajar VUE JS",
+              },
+            ],
+          };
+        },
+        watch: {},
+        methods: {
+          hapus(value) {
+            this.list.splice(value, 1);
+          },
+          add(start, end, kegiatan) {
+            let newData = { start: start, end: end, kegiatan: kegiatan };
+            this.list.push(newData);
+            this.start = "";
+            this.end = "";
+            this.kegiatan = "";
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
