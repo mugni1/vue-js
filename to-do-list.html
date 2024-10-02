@@ -14,10 +14,9 @@
     <!-- form add list -->
     <section class="w-full flex justify-center px-5 md:px-0">
       <div
-        action=""
-        class="w-full md:w-1/2 flex flex-wrap md:flex-nowrap justify-between md:justify-normal gap-6"
+        class="w-full md:w-1/2 flex flex-wrap md:flex-nowrap justify-between gap-6"
       >
-        <div class="w-5/12 md:w-2/12 flex flex-wrap">
+        <div class="w-5/12 md:w-2/12 fl ex flex-wrap">
           <label for="start" class="mb-1 font-bold">Start</label>
           <input
             id="start"
@@ -37,14 +36,17 @@
             v-model="end"
           />
         </div>
-        <input
-          type="text"
-          placeholder="Kegiatan"
-          class="border w-9/12 md:w-6/12 px-3 py-1 rounded-lg shadow-md"
-          v-model="kegiatan"
-        />
+        <div class="w-9/12 md:w-6/12 flex flex-wrap">
+          <label for="end" class="mb-1 font-bold">Kegiatan</label>
+          <input
+            type="text"
+            placeholder="Kegiatan"
+            class="w-full border px-3 py-1 rounded-lg shadow-md"
+            v-model="kegiatan"
+          />
+        </div>
         <button
-          class="py-1 px-4 bg-blue-600 rounded-lg text-white font-semibold active:bg-blue-900 shadow-md active:shadow-sm"
+          class="py-1 px-4 bg-blue-600 rounded-lg text-white font-semibold active:bg-blue-900 shadow-md active:shadow-sm inline mt-7"
           @click="add(start,end,kegiatan)"
         >
           Add
@@ -68,14 +70,25 @@
           </button>
           <button
             class="py-1 px-4 bg-green-600 rounded-lg text-white font-semibold active:bg-green-900 shadow-lg active:shadow-sm"
+            @click="done(index)"
           >
             Done
           </button>
           <div class="flex flex-wrap md:flex-nowrap items-center w-full">
-            <span class="w-full md:w-3/12 font-semibold"
-              >{{ item.start }} - {{ item.end }}</span
-            >
-            <span class="w-full md:w-8/12"> {{ item.kegiatan }}</span>
+            <span v-if="item.done==false" class="w-full md:w-3/12 font-semibold"
+              >{{ item.start }} - {{ item.end }}
+            </span>
+            <span
+              v-else
+              class="w-full md:w-3/12 font-semibold text-red-600 line-through"
+              >{{ item.start }} - {{ item.end }}
+            </span>
+            <span v-if="item.done==false" class="w-full md:w-8/12">
+              {{ item.kegiatan }}
+            </span>
+            <span v-else class="w-full md:w-8/12 text-red-600 line-through">
+              {{ item.kegiatan }}
+            </span>
           </div>
         </li>
       </ul>
@@ -96,6 +109,7 @@
                 start: "19:00",
                 end: "22:00",
                 kegiatan: "Belajar VUE JS",
+                done: false,
               },
             ],
           };
@@ -105,8 +119,20 @@
           hapus(value) {
             this.list.splice(value, 1);
           },
+          done(index) {
+            if (this.list[index].done != true) {
+              this.list[index].done = true;
+            } else {
+              this.list[index].done = false;
+            }
+          },
           add(start, end, kegiatan) {
-            let newData = { start: start, end: end, kegiatan: kegiatan };
+            let newData = {
+              start: start,
+              end: end,
+              kegiatan: kegiatan,
+              done: false,
+            };
             this.list.push(newData);
             this.start = "";
             this.end = "";
