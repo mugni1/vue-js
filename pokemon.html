@@ -109,7 +109,9 @@
             <!-- end card -->
           </div>
           <div class="w-full md:w-7/12 px-5">
-            <h1 class="w-full my-5 uppercase font-bold text-xl">
+            <h1
+              class="w-full my-5 uppercase font-bold text-xl border-b pb-2 border-yellow-600"
+            >
               {{ pokemonDetail.name }}
             </h1>
             <h1
@@ -119,7 +121,7 @@
               <span class="font-bold"> Type {{ i.slot }} </span> : {{
               i.type.name }}
             </h1>
-            <h1 class="my-2 w-full">
+            <h1 class="w-full">
               <span class="font-bold"> Abilities : </span>
               <span v-for="(i, index) in pokemonDetail.abilities">
                 <span v-for="(abiliti, index) in i"> {{ abiliti.name }} </span>,
