@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POKEMON</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body id="app">
+    <section class="w-full">
+      <!-- container logo -->
+      <div class="container mx-auto px-5 my-5">
+        <!-- logo -->
+        <img src="image/pokemon.png" alt="" class="w-8/12 md:w-4/12 mx-auto" />
+        <!-- logo -->
+      </div>
+      <!-- end container logo -->
+
+      <!-- search -->
+      <div class="container mx-auto px-5 flex flex-wrap justify-center mb-10">
+        <div class="w-full flex flex-wrap justify-center">
+          <input
+            type="text"
+            class="w-full md:w-1/2 mx-auto py-2 px-3 rounded-md border shadow-md"
+            v-model="search"
+            placeholder="Search pokemon : pikachu, charmander ..."
+          />
+        </div>
+        <div class="w-full flex flex-wrap justify-center mt-2">
+          <div for="" class="w-full md:w-1/2">
+            <span class="font-semibold">Suggest : </span>
+            <span
+              class="me-2 text-blue-800 cursor-pointer"
+              v-for="(item, index) in suggest"
+              @click="detailPokemon(item.name)"
+            >
+              {{ item.name }},
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- search -->
+
+      <!-- list pokemon -->
+      <div v-if="cardList" class="container mx-auto my-5 flex flex-wrap">
+        <!-- card -->
+        <div
+          v-for="(item, index) in pokemonList"
+          class="w-1/2 md:w-3/12 p-5 md:p-8 cursor-pointer"
+          @click="detailPokemon(item.name)"
+        >
+          <div
+            class="px-5 w-full border py-5 shadow-md rounded-lg hover:scale-110 hover:shadow-xl transition-all duration-300"
+          >
+            <img :src="item.sprites.front_default" alt="" class="w-full px-5" />
+            <h1 class="text-center font-bold uppercase">
+              {{ item.name }}
+            </h1>
+          </div>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end list pokemon -->
+
+      <!-- detail pokemon -->
+      <div v-else class="container mx-auto my-5 flex flex-wrap">
+        <div class="w-full px-5">
+          <button
+            @click="backToCardList(pokemonDetail.id)"
+            class="bg-yellow-500 text-white font-semibold py-1 px-5 rounded-lg shadow-md"
+          >
+            Back
+          </button>
+        </div>
+        <!-- Detail -->
+        <div class="w-full flex flex-wrap">
+          <div class="w-full md:w-5/12 flex justify-between">
+            <!-- card -->
+            <div class="md:w-6/12 p-5 cursor-pointer">
+              <div
+                class="p-2 w-full border shadow-md rounded-lg hover:scale-110 hover:shadow-xl transition-all duration-300"
+              >
+                <img
+                  :src="pokemonDetail.sprites.front_default"
+                  alt=""
+                  class="w-full px-5"
+                />
+                <h1 class="text-center font-semibold uppercase">
+                  Front
+                </h1>
+              </div>
+            </div>
+            <!-- end card -->
+            <!-- card -->
+            <div class="md:w-6/12 p-5 cursor-pointer">
+              <div
+                class="p-2 w-full border shadow-md rounded-lg hover:scale-110 hover:shadow-xl transition-all duration-300"
+              >
+                <img
+                  :src="pokemonDetail.sprites.back_default"
+                  alt=""
+                  class="w-full px-5"
+                />
+                <h1 class="text-center font-semibold uppercase">
+                  Front
+                </h1>
+              </div>
+            </div>
+            <!-- end card -->
+          </div>
+          <div class="w-7/12 ps-5">
+            <h1 class="w-full my-5 uppercase font-bold text-xl">
+              {{ pokemonDetail.name }}
+            </h1>
+            <h1 v-for="(i, index) in pokemonDetail.types" class="font-semibold">
+              <span class="font-bold"> Type {{ i.slot }} </span> : {{
+              i.type.name }}
+            </h1>
+            <h1 class="my-2">
+              <span class="font-bold"> Skill : </span>
+              <span v-for="(i, index) in pokemonDetail.moves">
+                <span v-for="(skill, index) in i"> {{ skill.name }} </span>,
+              </span>
+            </h1>
+          </div>
+        </div>
+        <!-- DEtail -->
+      </div>
+      <!-- end detail pokemon -->
+    </section>
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            search: "",
+            pokemonList: [],
+            gen1PokemonList: [],
+            suggest: [],
+            cardList: true,
+            pokemonDetail: null,
+          };
+        },
+        methods: {
+          async getListPokemon() {
+            let response = await fetch("https://pokeapi.co/api/v2/pokemon");
+            let data = await response.json();
+            let results = data.results;
+
+            //for each pokemon
+            results.forEach((result) => {
+              this.getDetailPokemon(result);
+            });
+          },
+          async getDetailPokemon(result) {
+            let response = await fetch(
+              "https://pokeapi.co/api/v2/pokemon/" + result.name
+            );
+            let data = await response.json();
+            this.pokemonList.push(data);
+            //urutkan sesuai id DESC
+            this.pokemonList.sort((a, b) => a.id - b.id);
+          },
+          async detailPokemon(name) {
+            let response = await fetch(
+              "https://pokeapi.co/api/v2/pokemon/" + name
+            );
+            let data = await response.json();
+            console.log(data);
+            //masukan ke dalam pokemon detail
+            this.pokemonDetail = data;
+            //sembunyikan card list
+            this.cardList = false;
+          },
+          backToCardList(i) {
+            //hapus pokemon detail
+            this.pokemonDetail = null;
+            //sembunyikan card list
+            this.cardList = true;
+          },
+          async getGen1ListPokemon() {
+            let response = await fetch(
+              "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
+            );
+            let data = await response.json();
+            let results = data.results;
+            this.gen1PokemonList = results;
+          },
+        },
+        mounted() {
+          this.getListPokemon();
+          this.getGen1ListPokemon();
+        },
+        watch: {
+          search(keyword) {
+            let filterPokemon = this.gen1PokemonList.filter((item) => {
+              return item.name.includes(keyword);
+            });
+            if (keyword == "") {
+              this.suggest = [];
+            } else {
+              this.suggest = filterPokemon.slice(0, 10);
+            }
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

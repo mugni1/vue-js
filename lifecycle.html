@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body id="app">
+    <input type="text" value="cek123" ref="hitungan" />
+
+    <input type="text" :value="count" ref="sum" />
+    <button @click="count++">add</button>
+
+    <script type="module">
+      import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+      createApp({
+        data() {
+          return {
+            url: "google.com",
+            count: 0,
+          };
+        },
+        beforeCreate() {
+          console.log(`Before Create : ${this.url}`);
+        },
+        created() {
+          console.log(`Created : ${this.url}`);
+        },
+        beforeMount() {
+          console.log(`Before Mount : ${this.$refs.hitungan}`);
+        },
+        mounted() {
+          console.log(`Mounted : ${this.$refs.hitungan.value}`);
+        },
+        beforeUpdate() {
+          console.log(`Before Update : ${this.$refs.sum.value}`);
+        },
+        updated() {
+          console.log(`Updated : ${this.$refs.sum.value}`);
+        },
+        methods: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
