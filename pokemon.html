@@ -120,6 +120,12 @@
               i.type.name }}
             </h1>
             <h1 class="my-2 w-full">
+              <span class="font-bold"> Abilities : </span>
+              <span v-for="(i, index) in pokemonDetail.abilities">
+                <span v-for="(abiliti, index) in i"> {{ abiliti.name }} </span>,
+              </span>
+            </h1>
+            <h1 class="my-2 w-full">
               <span class="font-bold"> Skill : </span>
               <span v-for="(i, index) in pokemonDetail.moves">
                 <span v-for="(skill, index) in i"> {{ skill.name }} </span>,
@@ -190,7 +196,7 @@
           },
           async getGen1ListPokemon() {
             let response = await fetch(
-              "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
+              "https://pokeapi.co/api/v2/pokemon?limit=151"
             );
             let data = await response.json();
             let results = data.results;
